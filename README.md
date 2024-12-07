@@ -6,7 +6,7 @@ Ce projet consiste à créer un environnement de pré-production pour le déploi
 ---
 
 ## Architecture
-![Architecture](images/Architecture.jpg)
+![Architecture](images/Architecture_docker.jpg)
 
 ---
 
