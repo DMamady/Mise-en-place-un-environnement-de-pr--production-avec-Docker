@@ -1,0 +1,32 @@
+# Utilisation de l'image de base Debian
+FROM debian:latest
+
+# Définir les variables d’environnement
+ENV NODE_ENV=pre-production
+
+# Définir le Répertoire de Travail
+WORKDIR /usr/src/app
+
+# Installation des paquets nécessaires
+RUN apt-get update && \
+    apt-get install -y dialog openssh-server iproute2 iptables && \
+    apt-get install -y net-tools iputils-ping curl nano && \
+    rm -rf /var/lib/apt/lists/*
+
+# Configuration de SSH
+RUN echo 'root:password' | chpasswd && \
+    sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+# Exposer le port SSH
+EXPOSE 22
+
+# Commande par défaut
+CMD ["/usr/sbin/sshd", "-D"]
+
+# Étiquete de l’image
+LABEL version="1.0.0"
+LABEL description="Conteneur Pare-Feu Docker image"
+LABEL maintainer="Mamady Diakité"
+
+# Vérifie la santé de l’application
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD curl -fs http://localhost:$PORT || exit 1
