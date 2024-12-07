@@ -18,4 +18,3 @@ docker exec ContainerPareFeu bash -c "
     iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -d 10.0.0.0/24 -j MASQUERADE &&
     iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -d 192.168.0.0/24 -j MASQUERADE
 "
-echo "Configuration des règles de redirection IP et NAT à l’intérieur du pare-feu..."
